@@ -5,6 +5,7 @@
  */
 $(document).ready(function() {
 
+  const maxTweetLength = 140;
   const renderTweets = function(tweets) {
     $('#tweets-container').empty();
     // loops through tweets
@@ -50,35 +51,61 @@ $(document).ready(function() {
   };
   fetchTweets();
 
-  // form from the DOM
   const $form = $('#new-tweet-form');
   $form.on('submit', (event) => {
     event.preventDefault();
-    console.log('Form has submitted.');
+    const $tweetText = $('#tweet-text');
+    const tweetContent = $tweetText.val().trim();
+    if (!tweetContent) {
+      alert('Error: tweet content is not present.');
+      return;
+    }
+    if (tweetContent.length > maxTweetLength) {
+      alert(`Error: tweet content is too long (max ${maxTweetLength} characters).`);
+      return;
+    }
     const data = $form.serialize();
-    console.log(data);
-
     $.ajax({
       method: 'POST',
       url: '/tweets',
       data: data
     }).then(() => {
-      console.log('request has resolved');
       fetchTweets();
+      $tweetText.val('');
     });
   });
-
-  // fetch data from /tweets
-  function loadTweets() {
-    $.ajax({
-      url: "http://localhost:8080/tweets",
-      method: "GET",
-      dataType: "json",
-    }.then((tweets) => {
-      console.log('tweets: ', tweets);
-      renderTweets(tweets);
-    })
-    );
-  }
-  loadTweets();
 });
+
+/*
+    // form from the DOM
+    const $form = $('#new-tweet-form');
+    $form.on('submit', (event) => {
+      event.preventDefault();
+      console.log('Form has submitted.');
+      const data = $form.serialize();
+      console.log(data);
+  
+      $.ajax({
+        method: 'POST',
+        url: '/tweets',
+        data: data
+      }).then(() => {
+        console.log('request has resolved');
+        fetchTweets();
+      });
+    });
+  
+    // fetch data from /tweets
+    function loadTweets() {
+      $.ajax({
+        url: "http://localhost:8080/tweets",
+        method: "GET",
+        dataType: "json",
+      }.then((tweets) => {
+        console.log('tweets: ', tweets);
+        renderTweets(tweets);
+      })
+      );
+    }
+    loadTweets();
+    */
