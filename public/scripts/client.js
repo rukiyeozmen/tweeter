@@ -59,6 +59,7 @@ $(document).ready(function() {
   const $form = $('#new-tweet-form');
   $form.on('submit', (event) => {
     event.preventDefault();
+    $('#error-message').slideUp(); // hides the error message before validation
     const $tweetText = $('#tweet-text');
     const tweetContent = $tweetText.val().trim();
     if (!tweetContent) {
