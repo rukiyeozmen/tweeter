@@ -17,6 +17,11 @@ $(document).ready(function() {
 
   const createTweetElement = function(tweetData) {
     const timestamp = timeago.format(tweetData.created_at);
+    const escape = function(str) {
+      let div = document.createElement("div");
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    };
     const $tweet = $(`
   <article class="tweet">
     <header>
@@ -27,7 +32,7 @@ $(document).ready(function() {
         <p>${tweetData["user"].handle}</p>
     </header>
     <div class="tweet-content">
-      <p>${tweetData["content"].text} </p>
+      <p>${escape(tweetData["content"].text)} </p>
     </div>
     <footer>
       <p class="timestamp">${timestamp}</p>
@@ -57,12 +62,12 @@ $(document).ready(function() {
     const $tweetText = $('#tweet-text');
     const tweetContent = $tweetText.val().trim();
     if (!tweetContent) {
-      alert('Error: tweet content is not present.');
-      return;
+      $('#error-message').text('Tweet content cannot be empty.').slideDown();
+      return false;
     }
     if (tweetContent.length > maxTweetLength) {
-      alert(`Error: tweet content is too long (max ${maxTweetLength} characters).`);
-      return;
+      $('#error-message').text(`Error: tweet content is too long (max ${maxTweetLength} characters).`).slideDown();
+      return false;
     }
     const data = $form.serialize();
     $.ajax({
@@ -74,38 +79,16 @@ $(document).ready(function() {
       $tweetText.val('');
     });
   });
-});
 
-/*
-    // form from the DOM
-    const $form = $('#new-tweet-form');
-    $form.on('submit', (event) => {
-      event.preventDefault();
-      console.log('Form has submitted.');
-      const data = $form.serialize();
-      console.log(data);
-  
-      $.ajax({
-        method: 'POST',
-        url: '/tweets',
-        data: data
-      }).then(() => {
-        console.log('request has resolved');
-        fetchTweets();
-      });
+  function loadTweets() {
+    $.ajax({
+      url: "/tweets",
+      method: "GET",
+      dataType: "json",
+    }).then((tweets) => {
+      console.log('tweets: ', tweets);
+      renderTweets(tweets);
     });
-  
-    // fetch data from /tweets
-    function loadTweets() {
-      $.ajax({
-        url: "http://localhost:8080/tweets",
-        method: "GET",
-        dataType: "json",
-      }.then((tweets) => {
-        console.log('tweets: ', tweets);
-        renderTweets(tweets);
-      })
-      );
-    }
-    loadTweets();
-    */
+  }
+  loadTweets();
+});
