@@ -1,0 +1,38 @@
+nav {
+  height: 120px;
+  width: 100%;
+  
+  padding:1.5em;
+  color: #FFFFFF;
+  display: flex;
+  direction: column;
+  justify-content:space-between;
+  position: fixed;
+  top: 0;
+}
+
+nav span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Bungee', cursive;
+}
+
+.write{
+font-family:'Source Sans Pro'
+}
+
+#error-message {
+  display: none;
+  background-color: #ffcccc;
+  color: #cc0000;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+@media only screen and (min-width: 1024px){
+  nav{
+   background-color: #4056A1;
+  }
+   }

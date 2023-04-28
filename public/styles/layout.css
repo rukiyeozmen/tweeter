@@ -15,11 +15,43 @@ html {
  */
 
 body {
-  color: #545149;
+  /* color: #545149; */
   background-color: #f4f1ec;
   font-size: 24px;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
+ * {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+ nav .logo {
+  font-family: 'Bungee', cursive;
+}
+
+
+main {
+  width: 90%;
+  margin: 0 auto;
+  /* background-color: black; */
+}
+
+
+
+@media only screen and (min-width: 1024px){
+  .page-container{
+    display: flex;
+    margin-top:120px;
+    padding:50px;
+  }
+
+
+  .header-container{
+    flex:1;
+  }
+  .main-container{
+    flex:1;
+  }
+}

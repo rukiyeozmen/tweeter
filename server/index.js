@@ -2,13 +2,14 @@
 
 // Basic express setup:
 
-const PORT          = 8080;
-const express       = require("express");
-const bodyParser    = require("body-parser");
-const app           = express();
+const PORT = 8080;
+const express = require("express");
+const bodyParser = require("body-parser");
+const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static("public")); //displays on localhost
+app.use(express.urlencoded({ extended: false }));
 
 // The in-memory database of tweets. It's a basic object with an array in it.
 const db = require("./lib/in-memory-db");
@@ -29,8 +30,23 @@ require("./lib/date-adjust")();
 // so it can define routes that use it to interact with the data layer.
 const tweetsRoutes = require("./routes/tweets")(DataHelpers);
 
+
 // Mount the tweets routes at the "/tweets" path prefix:
 app.use("/tweets", tweetsRoutes);
+
+app.get('/tweetData', (req, res) => {
+  res.json(tweetData);
+});
+
+app.post('/tweets', (req, res) => {
+  //message stored 
+  const text = req.body.text;
+  const newTweet = {
+    text: text
+  };
+  tweetData.push(newTweet);
+  res.status(201).send();
+});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
