@@ -16,3 +16,8 @@ This repository is the starter code for the project: Students will fork and clon
 
 - Express
 - Node 5.10.x or above
+
+## Screenhots
+
+!["Screetshot for desktop version of tweeter"](https://github.com/rukiyeozmen/tweeter/blob/master/docs/desktop-tweeter.png?raw=true)
+!["Screetshot for mobile version of tweeter"](https://github.com/rukiyeozmen/tweeter/blob/master/docs/mobile-tweeter.png?raw=true)
