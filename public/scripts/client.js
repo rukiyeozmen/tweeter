@@ -24,13 +24,13 @@ $(document).ready(function() {
     };
     const $tweet = $(`
   <article class="tweet">
-    <header>
+    <div class="tweet-header">
       <span>
         <img src="${tweetData["user"].avatars}">
         <p> ${tweetData["user"].name} </p>
         </span>
         <p>${tweetData["user"].handle}</p>
-    </header>
+    </div>
     <div class="tweet-content">
       <p>${escape(tweetData["content"].text)} </p>
     </div>
