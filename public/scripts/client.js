@@ -78,6 +78,7 @@ $(document).ready(function() {
     }).then(() => {
       fetchTweets();
       $tweetText.val('');
+      $('.counter').val(maxTweetLength);
     });
   });
 
